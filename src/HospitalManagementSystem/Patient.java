@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Patient {
+
     private java.sql.Connection Connection;
     private java.util.Scanner Scanner;
 
@@ -16,14 +17,14 @@ public class Patient {
     }
 
     public void addPatient(){
-        System.out.print("Enter the Name");
+        System.out.print("Enter the Name: ");
         String Name = Scanner.next();
-        System.out.print("Enter Your Age");
+        System.out.print("Enter Your Age: ");
         int Age = Scanner.nextInt();
-        System.out.print("Enter Your Gender");
+        System.out.print("Enter Your Gender: ");
         String Gender = Scanner.next();
 
-        try {String Query = "INSERT INTO Patient(Name,Age,Gender) VALUES(?,?,?)";
+        try {String Query = "INSERT INTO patients(Name,Age,Gender) VALUES(?,?,?)";
             PreparedStatement preparedStatement = Connection.prepareStatement(Query);
             preparedStatement.setString(1,Name);
             preparedStatement.setInt(2,Age);
@@ -43,7 +44,7 @@ public class Patient {
 
     }
     public void ViewPatient(){
-        String Query = "Select * from Patient";
+        String Query = "Select * from patients";
         try{
             PreparedStatement preparedStatement = Connection.prepareStatement(Query);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -56,7 +57,7 @@ public class Patient {
                 String Name = resultSet.getString("Name");
                 int Age = resultSet.getInt("Age");
                 String Gender = resultSet.getString("Gender");
-                System.out.printf("|%12s|%20s|%14s|%15s|\n",Id,Id,Name,Age,Gender);
+                System.out.printf("|%12s|%20s|%14s|%15s|\n",Id,Name,Age,Gender);
                 System.out.println("+------------+--------------------+--------------+---------------+");
             }
 
@@ -66,7 +67,7 @@ public class Patient {
 
     }
     public boolean GetPatientById(int Id) {
-        String Query = "Select * from Patient where Id=?";
+        String Query = "Select * from patients where Id=?";
         try {
             PreparedStatement preparedStatement = Connection.prepareStatement(Query);
             preparedStatement.setInt(1, Id);
@@ -84,3 +85,4 @@ public class Patient {
     }
 
 }
+
